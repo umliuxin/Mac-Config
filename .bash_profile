@@ -31,6 +31,27 @@ if [ ! -f ~/git-prompt.sh ]; then
   wget -q -O ~/git-prompt.sh http://bit.ly/1G4sFbd
 fi
 source ~/git-prompt.sh
+# Show local branches sorted by last change
+alias recent='git for-each-ref --sort=committerdate refs/heads/ --format="(%(color:green)%(committerdate:relative)%(color:reset)) %(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname)"'
+
+
+alias ga='git add'
+alias gcl='git clone'
+alias gp='git push'
+alias gl='git log'
+alias glg1='git lg1'
+alias glg2='git lg2'
+alias gs='git status'
+alias gsb='git show-branch'
+alias gd='git diff'
+alias gdt='git difftool'
+alias gcm='git commit -m'
+alias gcam='git commit -am'
+alias gb='git branch'
+alias gc='git checkout'
+alias gra='git remote add'
+alias grr='git remote rm'
+alias gpu='git pull'
 
 #   -------------------------------
 #   2.  MAKE TERMINAL BETTER
@@ -63,24 +84,6 @@ mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and ju
 trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
 ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
 alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
-
-alias ga='git add'
-alias gcl='git clone'
-alias gp='git push'
-alias gl='git log'
-alias glg1='git lg1'
-alias glg2='git lg2'
-alias gs='git status'
-alias gsb='git show-branch'
-alias gd='git diff'
-alias gdt='git difftool'
-alias gm='git commit -m'
-alias gma='git commit -am'
-alias gb='git branch'
-alias gc='git checkout'
-alias gra='git remote add'
-alias grr='git remote rm'
-alias gpu='git pull'
 
 
 
@@ -215,3 +218,8 @@ EOT
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
     if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
     if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# Setting PATH for Python 3.5
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
+export PATH
