@@ -52,6 +52,8 @@ alias gc='git checkout'
 alias gra='git remote add'
 alias grr='git remote rm'
 alias gpu='git pull'
+alias gcd='git checkout development'
+alias gprod='git pull --rebase origin development'
 
 #   -------------------------------
 #   2.  MAKE TERMINAL BETTER
