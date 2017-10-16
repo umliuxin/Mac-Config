@@ -54,6 +54,14 @@ alias grr='git remote rm'
 alias gpu='git pull'
 alias gcd='git checkout development'
 alias gprod='git pull --rebase origin development'
+alias gst='git stash'
+alias gsp='git stash pop'
+alias kp3000='kill -9 $(lsof -i tcp:3000 -t)'
+alias killcamera='sudo killall VDCAssistant'
+alias gps = 'git push --set-upstream origin HEAD'
+alias garc = 'git add . & git rebase —continue'
+
+
 
 #   -------------------------------
 #   2.  MAKE TERMINAL BETTER
