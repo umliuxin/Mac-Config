@@ -35,7 +35,6 @@ source ~/git-prompt.sh
 alias recent='git for-each-ref --sort=committerdate refs/heads/ --format="(%(color:green)%(committerdate:relative)%(color:reset)) %(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname)"'
 
 
-alias ga='git add'
 alias gcl='git clone'
 alias gp='git push'
 alias gl='git log'
@@ -54,12 +53,15 @@ alias grr='git remote rm'
 alias gpu='git pull'
 alias gcd='git checkout development'
 alias gprod='git pull --rebase origin development'
+alias gpro='git pull --rebase origin'
 alias gst='git stash'
 alias gsp='git stash pop'
 alias kp3000='kill -9 $(lsof -i tcp:3000 -t)'
 alias killcamera='sudo killall VDCAssistant'
-alias gps = 'git push --set-upstream origin HEAD'
-alias garc = 'git add . & git rebase —continue'
+alias gps='git push --set-upstream origin HEAD'
+alias ga='git add .'
+alias grc='git rebase —-continue '
+alias garc='git add . && git rebase —-continue '
 
 
 
