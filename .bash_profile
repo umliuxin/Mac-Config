@@ -31,6 +31,11 @@ if [ ! -f ~/git-prompt.sh ]; then
   wget -q -O ~/git-prompt.sh http://bit.ly/1G4sFbd
 fi
 source ~/git-prompt.sh
+
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+  . `brew --prefix`/etc/bash_completion
+fi
+
 # Show local branches sorted by last change
 alias recent='git for-each-ref --sort=committerdate refs/heads/ --format="(%(color:green)%(committerdate:relative)%(color:reset)) %(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname)"'
 
@@ -57,12 +62,16 @@ alias gpro='git pull --rebase origin'
 alias gst='git stash'
 alias gsp='git stash pop'
 alias kp3000='kill -9 $(lsof -i tcp:3000 -t)'
+alias kp4000='kill -9 $(lsof -i tcp:4000 -t)'
 alias killcamera='sudo killall VDCAssistant'
 alias gps='git push --set-upstream origin HEAD'
 alias ga='git add .'
 alias grc='git rebase —-continue '
 alias garc='git add . && git rebase —-continue '
+alias grih='git rebase -i HEAD~'
 
+alias bcnext='git fetch git@github.move.com:ConsumerTech/rdc-next-basecamp.git'
+alias bcfesl='git fetch git@github.move.com:ConsumerTech/fesl-basecamp.git'
 
 
 #   -------------------------------
