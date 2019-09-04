@@ -17,25 +17,28 @@
 #   1.  GITHUB
 #   -------------------------------
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # git auto-completion
-if [ ! -f ~/git-completion.bash ]; then
-  echo 'Downloading: git-completion.bash...'
-  wget -q -O ~/git-completion.bash http://bit.ly/1u6N2MC
-fi
-source ~/git-completion.bash
+# `brew install git bash-completion`
+# https://github.com/bobthecow/git-flow-completion/wiki/Install-Bash-git-completion
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion || {
+    # if not found in /usr/local/etc, try the brew --prefix location
+    [ -f "$(brew --prefix)/etc/bash_completion.d/git-completion.bash" ] && \
+        . $(brew --prefix)/etc/bash_completion.d/git-completion.bash
+}
+
+# Show git branch
+GIT_PS1_SHOWDIRTYSTATE=true
+export PS1='[\u@mbp \w$(__git_ps1)]\$ '
 
 # git prompt
-if [ ! -f ~/git-prompt.sh ]; then
-  echo 'Downloading: git-prompt.sh...'
-  wget -q -O ~/git-prompt.sh http://bit.ly/1G4sFbd
-fi
-source ~/git-prompt.sh
+# install by `brew install bash-git-prompt`
+# https://github.com/magicmonty/bash-git-prompt
 
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
+if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+  __GIT_PROMPT_DIR=$(brew --prefix)/opt/bash-git-prompt/share
+  GIT_PROMPT_ONLY_IN_REPO=1
+  source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
 fi
-
 # Show local branches sorted by last change
 alias recent='git for-each-ref --sort=committerdate refs/heads/ --format="(%(color:green)%(committerdate:relative)%(color:reset)) %(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname)"'
 
@@ -49,30 +52,42 @@ alias gs='git status'
 alias gsb='git show-branch'
 alias gd='git diff'
 alias gdt='git difftool'
-alias gcm='git commit -m'
-alias gcam='git commit -am'
+alias gco='git commit'
+alias gca='git commit -a'
+alias gcam='git commit --amend'
 alias gb='git branch'
 alias gc='git checkout'
 alias gra='git remote add'
 alias grr='git remote rm'
 alias gpu='git pull'
-alias gcd='git checkout development'
-alias gprod='git pull --rebase origin development'
+alias gcm='git checkout master'
+alias gprom='git pull --rebase origin master'
 alias gpro='git pull --rebase origin'
 alias gst='git stash'
 alias gsp='git stash pop'
+alias glc='git log --name-status -n 1 HEAD~1..HEAD'
+alias glcd='git show HEAD'
+alias gsc='git diff-tree --no-commit-id --name-only -r'
 alias kp3000='kill -9 $(lsof -i tcp:3000 -t)'
-alias kp4000='kill -9 $(lsof -i tcp:4000 -t)'
+alias kp4443='kill -9 $(lsof -i tcp:4443 -t)'
+alias kp1340='kill -9 $(lsof -i tcp:1340 -t)'
+alias killember='killall -9 ember && echo "ember killed"'
+alias killjava='killall -9 java && echo "java killed"'
+alias killnode='killall -9 node && echo "node killed"'
 alias killcamera='sudo killall VDCAssistant'
 alias gps='git push --set-upstream origin HEAD'
 alias ga='git add .'
-alias grc='git rebase —-continue '
-alias garc='git add . && git rebase —-continue '
+alias grc='git review create --owners-only --no-prompt'
+alias gru='git review update'
+alias grd='git review dcommit'
 alias grih='git rebase -i HEAD~'
-
-alias bcnext='git fetch git@github.move.com:ConsumerTech/rdc-next-basecamp.git'
-alias bcfesl='git fetch git@github.move.com:ConsumerTech/fesl-basecamp.git'
-
+alias rs='yarn rb-status'
+alias rbs='yarn rb-status'
+alias mu='mint update'
+alias ms='mint submit'
+alias pr='platform-review'
+alias prs='platform-review start'
+alias v-web-clean='echo "Cleaning voyager-web..." && rm -rf ~/.just/voyager-web/* tmp build bower_components node_modules dist .eyeglass_cache && npm cache verify && yarn'
 
 #   -------------------------------
 #   2.  MAKE TERMINAL BETTER
@@ -235,12 +250,14 @@ EOT
 #   ---------------------------------------
 
 
-    export NVM_DIR="/Users/xiliu/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
     if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-    if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Setting PATH for Python 3.5
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
-export PATH
+
+
+    # Setting PATH for Python 3.7
+    # The original version is saved in .bash_profile.pysave
+    PATH="~/Library/Python/3.7/bin:${PATH}"
+    export PATH

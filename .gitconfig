@@ -4,20 +4,23 @@
 	smudge = git media smudge %f
 [user]
 	name = Xin Liu
-	email = xin.liu@move.com
+	email = xinliu.gl@gmail.com
 [filter "hawser"]
 	clean = git hawser clean %f
 	smudge = git hawser smudge %f
 	required = true
 [core]
-	editor = atom --wait
+	editor = code --wait
 	excludesfile = /Users/xiliu/.gitignore_global
 [filter "lfs"]
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	process = git-lfs filter-process
+[diff]
+    tool = vscode
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
